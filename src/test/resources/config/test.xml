@@ -1,0 +1,14 @@
+<pub>
+	<datetime>20140715</datetime>
+	<msgnumber>0000001222</msgnumber>
+	<townname>330502201</townname>
+	<sender>1001</sender>
+	<receiver>0011</receiver>
+	<code>1201</code>
+	<type>0</type>
+	<msgstatus>0</msgstatus>
+	<count>1</count>
+    <req sender="1001">
+        <datetime>20150125</datetime>
+    </req>
+</pub>
