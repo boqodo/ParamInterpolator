@@ -14,7 +14,7 @@ import org.springframework.util.ClassUtils;
 import java.util.List;
 
 
-public class MultiAnnotationDispatcherPostProcess extends ProxyConfig implements BeanPostProcessor, BeanClassLoaderAware, Ordered {
+public class MultiAnnotationDispatcherPostProcessor extends ProxyConfig implements BeanPostProcessor, BeanClassLoaderAware, Ordered {
     private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     protected List<AdvisorProvider> advisorProviders;

@@ -1,6 +1,7 @@
 package z.cube.param.handler;
 
 import org.springframework.beans.BeanUtils;
+import z.cube.param.config.Config;
 import z.cube.param.config.InitConfig;
 import z.cube.param.config.SourceType;
 
@@ -9,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ConfigHandlerFactory {
     private static final String              INSTANCE_SUFFIX = "#Instance";
-    private static final Map<Object, Object> HANDLER_MAP     = new ConcurrentHashMap<Object, Object>();
+    private static final Map<Object, Object> HANDLER_MAP = new ConcurrentHashMap<Object, Object>(4);
 
     static {
         HANDLER_MAP.put(SourceType.DATABASE, DatabaseConfigHandler.class);
@@ -40,5 +41,10 @@ public class ConfigHandlerFactory {
             HANDLER_MAP.put(instanceKey, ch);
         }
         return ch;
+    }
+
+    public static Object getValue(Config config, InitConfig initConfig) {
+        return getConfigHandler(config.source(), initConfig)
+                .getValue(config.key());
     }
 }

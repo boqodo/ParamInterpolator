@@ -61,12 +61,26 @@
         <property name="valueColumn" value="value"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>
+    <!--
+    <bean class="org.springframework.jdbc.datasource.init.DataSourceInitializer" lazy-init="true">
+         <property name="dataSource" ref="dataSource"/>
+         <property name="databasePopulator">
+             <bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
+                 <property name="scripts" value="classpath:script/config-init.sql"/>
+                 <property name="sqlScriptEncoding" value="UTF-8"/>
+             </bean>
+         </property>
+     </bean>
+     -->
+    <jdbc:initialize-database data-source="dataSource"
+                              ignore-failures="ALL">
+        <jdbc:script location="classpath:script/config-init.sql" encoding="UTF-8"/>
+    </jdbc:initialize-database>
 
     <!--<bean class="z.cube.param.spring.ParameterConfigurationPostProcessor">-->
     <!--<property name="initConfig" ref="initConfig"/>-->
     <!--</bean>-->
-
-    <bean class="z.cube.param.spring.MultiAnnotationDispatcherPostProcess">
+    <bean class="z.cube.param.spring.MultiAnnotationDispatcherPostProcessor">
         <property name="advisorProviders">
             <list>
                 <bean class="z.cube.param.test.DoubAdvisorProvider2"/>
@@ -77,9 +91,5 @@
             </list>
         </property>
     </bean>
-
-    <jdbc:initialize-database data-source="dataSource"
-                              ignore-failures="ALL">
-        <jdbc:script location="classpath:script/config-init.sql" encoding="UTF-8"/>
-    </jdbc:initialize-database>
+    <bean class="z.cube.param.spring.AnnotationScannerPostProcessor"/>
 </beans>

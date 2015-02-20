@@ -12,7 +12,6 @@ import z.cube.param.config.InitConfig;
 import z.cube.param.config.SourceType;
 import z.cube.param.handler.ConfigHandler;
 import z.cube.param.handler.ConfigHandlerFactory;
-import z.cube.utils.AT;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -95,7 +94,7 @@ public class MethodParameterInjectInterceptor implements MethodInterceptor {
         return ConfigHandlerFactory.getConfigHandler(sourceType, initConfig);
     }
 
-    private Object getValue(Config config){
+    private Object getValue(Config config) {
         return getConfigHandler(config.source()).getValue(config.key());
     }
 
@@ -111,12 +110,12 @@ public class MethodParameterInjectInterceptor implements MethodInterceptor {
             if (BeanUtils.isSimpleProperty(fieldType)) {
                 //获取字段上的Config注解,未设Config注解，则默认用字段名作为key取值
 
-                String name=field.getName();
+                String name = field.getName();
                 Object val;
-                if(at(field).isPresent(Config.class)){
-                    val=getValue(at(field).ai(Config.class));
-                }else{
-                    val=handler.getValue(name);
+                if (at(field).isPresent(Config.class)) {
+                    val = getValue(at(field).ai(Config.class));
+                } else {
+                    val = handler.getValue(name);
                 }
                 val = ConvertUtils.convert(val, fieldType);
                 on(vo).set(name, val);
